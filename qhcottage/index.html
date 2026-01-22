@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title> QH Cottage — Official Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--green:#1e3a2a;--brown:#6b3e1e;--cream:#f7f5f2;--shadow:0 8px 24px rgba(0,0,0,0.08);--radius:14px}
+body{margin:0;font-family:Inter,sans-serif;background:var(--cream);color:#222;scroll-behavior:smooth}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:#fff;box-shadow:var(--shadow);position:sticky;top:0;z-index:20}
+.logo{font-family:Playfair Display,serif;background:linear-gradient(135deg,var(--green),var(--brown));color:#fff;font-weight:700;width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px}
+nav a{margin:0 10px;color:#444;text-decoration:none;font-weight:600}
+nav a:hover{color:var(--brown)}
+section{padding:70px 20px;max-width:1300px;margin:auto}
+h1,h2{font-family:Playfair Display,serif}
+h2{text-align:center;margin-bottom:30px;position:relative}
+h2::after{content:"";display:block;width:70px;height:3px;background:var(--brown);margin:10px auto 0;border-radius:2px}
+.hero{position:relative;background:url('images/banner.jpg') center/cover no-repeat;color:#fff;text-align:center;border-radius:var(--radius);padding:120px 20px;box-shadow:var(--shadow)}
+.hero::after{content:"";position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(30,58,42,0.55)}
+.hero h1,.hero p,.hero a{position:relative;z-index:2}
+.hero h1{font-size:46px;margin-bottom:10px;text-shadow:0 3px 10px rgba(0,0,0,0.7)}
+.btn{padding:12px 22px;border:none;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;text-decoration:none;display:inline-block}
+.btn-primary{background:var(--brown);color:#fff}
+.btn-primary:hover{transform:scale(1.07);box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+#filterBtns{text-align:center;margin-bottom:20px}
+#filterBtns button{margin:5px;padding:8px 16px;border-radius:20px;border:1px solid var(--brown);background:#fff;color:var(--brown);cursor:pointer;transition:.3s}
+#filterBtns button.active,#filterBtns button:hover{background:var(--brown);color:#fff}
+#productGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.product{background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .3s}
+.product:hover{transform:translateY(-5px)}
+.product img{width:100%;height:180px;object-fit:cover;transition:transform .3s}
+.product:hover img{transform:scale(1.05)}
+.product h3{margin:12px}
+.product p{margin:0 12px 5px;font-size:14px;color:#666}
+.product .size{font-size:13px;color:#333;margin:0 12px 10px;font-weight:600}
+.product .actions{text-align:center;padding:12px}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:20px}
+.review-card{background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);text-align:center}
+.review-card .stars{color:#f4c430;font-size:16px;margin-bottom:8px}
+.review-card p{font-style:italic;color:#555}
+.contact-icons a{font-size:30px;margin:10px;color:#fff;display:inline-block;width:50px;height:50px;border-radius:50%;line-height:50px;text-align:center;transition:.3s}
+.contact-icons .whatsapp{background:#25d366}
+.contact-icons .instagram{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.contact-icons a:hover{transform:scale(1.1)}
+form{max-width:500px;margin:20px auto;background:#fff;padding:20px;border-radius:var(--radius);box-shadow:var(--shadow)}
+form input,form textarea{width:100%;padding:12px 14px;margin-bottom:12px;border-radius:10px;border:1px solid #ccc;font-size:15px;background:#fafafa;transition:0.3s}
+form input:focus,form textarea:focus{border-color:var(--brown);background:#fff;outline:none;box-shadow:0 0 0 2px rgba(107,62,30,0.2)}
+iframe{border-radius:12px;width:100%;height:250px;border:0;margin-top:15px}
+footer{text-align:center;padding:20px;color:#666}
+footer .social-icons a{margin:0 8px;color:var(--brown);font-size:20px}
+#cartBtn{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:24px;box-shadow:var(--shadow);cursor:pointer}
+#cartCount{position:absolute;top:10px;right:10px;background:#fff;color:var(--green);font-weight:700;border-radius:50%;padding:3px 6px;font-size:12px}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center}
+.modal-content{background:#fff;padding:20px;border-radius:var(--radius);max-width:500px;width:90%;box-shadow:var(--shadow)}
+.cart-item{display:flex;justify-content:space-between;margin:6px 0}
+.confirm-btn{background:#25d366;color:#fff;width:100%;margin-top:12px}
+.product img {
+  width: 100%;
+  height: 230px; /* ✅ fixed square height */
+  object-fit: cover; /* ✅ crop karega aur center me rakhega */
+  transition: transform .3s;
+}
+
+.contact-icons {
+  text-align: center; /* ✅ Center align */
+  margin: 20px 0;
+}
+.contact-icons a {
+  font-size: 40px; /* ✅ Bigger size */
+  margin: 15px;
+  color: #fff;
+  display: inline-block;
+  width: 60px; /* ✅ Bigger circle */
+  height: 60px;
+  border-radius: 50%;
+  line-height: 60px;
+  text-align: center;
+  transition: .3s;
+}
+
+
+/* ✅ RESPONSIVE DESIGN FIXES */
+
+/* --- Mobile Hero Section --- */
+@media (max-width: 768px) {
+  .hero {
+    height: 70vh; /* thoda chhota mobile me */
+    padding: 40px 10px;
+  }
+
+  .hero-content {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}
+
+/* --- Product Grid --- */
+@media (max-width: 768px) {
+  #productGrid {
+    grid-template-columns: 1fr 1fr; /* 2 products per row */
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #productGrid {
+    grid-template-columns: 1fr; /* 1 product per row on small phones */
+  }
+
+  .product img {
+    height: 200px; /* chhota image mobile ke liye */
+  }
+}
+
+/* --- Contact Form --- */
+@media (max-width: 600px) {
+  form {
+    padding: 15px;
+  }
+
+  form input, form textarea {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+/* --- Customer Reviews --- */
+@media (max-width: 768px) {
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Footer Social Icons --- */
+@media (max-width: 600px) {
+  footer div a {
+    width: 40px;
+    height: 40px;
+  }
+  footer div a i {
+    font-size: 18px;
+  }
+}
+
+/* ================================
+   QH COTTAGE – LEATHER THEME OVERRIDE
+   ================================ */
+
+:root{
+  --green:#4B2E1F;      /* Dark Leather */
+  --brown:#7A4A2E;      /* Saddle Brown */
+  --cream:#F5F1EC;      /* Premium Cream */
+  --gold:#C9A24D;       /* Antique Gold */
+  --dark:#1F1A17;
+  --shadow:0 12px 32px rgba(0,0,0,0.18);
+}
+
+/* BODY */
+body{
+  background:var(--cream);
+  color:var(--dark);
+}
+
+/* HEADER / NAVBAR */
+header{
+  background:#2B1B12;
+}
+
+nav a{
+  color:#E8DCCF;
+}
+
+nav a:hover{
+  color:var(--gold);
+}
+
+/* HERO OVERLAY */
+.hero::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(43,27,18,0.35); /* 👈 lighter */
+  pointer-events:none;           /* 👈 CLICK ISSUE FIX */
+}
+
+
+/* HERO CONTENT CARD */
+.hero-content{
+  background:rgba(0,0,0,0.45);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(6px);
+}
+
+/* BUTTONS */
+.btn-primary{
+  background:linear-gradient(135deg,#7A4A2E,#4B2E1F);
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:linear-gradient(135deg,#8B5A3C,#5A3726);
+}
+
+/* SECTION HEADINGS */
+h2{
+  color:#4B2E1F;
+}
+
+h2::after{
+  background:var(--gold);
+}
+
+/* PRODUCT CARDS */
+.product{
+  background:#fff;
+  border:1px solid #E3D6C8;
+}
+
+.product h3{
+  color:#4B2E1F;
+}
+
+.product p{
+  color:#6B4A35;
+}
+
+/* FILTER BUTTONS */
+#filterBtns button{
+  border-color:#7A4A2E;
+  color:#7A4A2E;
+}
+
+#filterBtns button.active,
+#filterBtns button:hover{
+  background:#7A4A2E;
+  color:#fff;
+}
+
+/* CART BUTTON */
+#cartBtn{
+  background:#2B1B12;
+}
+
+#cartCount{
+  color:#2B1B12;
+}
+
+/* MODAL */
+.modal-content{
+  background:#FAF6F1;
+}
+
+/* FOOTER */
+footer{
+  background:#2B1B12 !important;
+  color:#E8DCCF;
+}
+
+footer a{
+  color:#E8DCCF;
+}
+
+footer a:hover{
+  transform:scale(1.15);
+}
+
+
+
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <img src="WhatsApp Image 2026-01-20 at 20.07.02.jpeg" 
+         alt="QH cottage Logo" style="height:48px;width:auto;border-radius:10px;">
+  </div>
+
+  <!-- ✅ Navigation -->
+  <nav id="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#shop">Shop</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- ✅ Mobile Menu Button -->
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+<style>
+/* ✅ Navbar Styling */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background:#2B1B12;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+nav a {
+  margin: 0 12px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+nav a:hover {
+  color: var(--brown);
+}
+
+/* ✅ Mobile Menu Hidden by Default */
+#navbar {
+  display: flex;
+  align-items: center;
+}
+.menu-toggle {
+  display: none;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+/* ✅ Responsive Menu */
+@media (max-width: 768px) {
+  #navbar {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    padding: 15px;
+    z-index: 100;
+  }
+
+  #navbar.show {
+    display: flex;
+  }
+
+  #navbar a {
+    margin: 10px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+</style>
+
+<script>
+function toggleMenu() {
+  document.getElementById("navbar").classList.toggle("show");
+}
+</script>
+
+<section id="home" class="hero"
+
+style="background:url('1.webp') center/cover no-repeat;">
+
+  
+  <div class="hero-content">
+    <h1>QH Cottage</h1>
+    <p>Premium leather goods crafted for timeless style.</p>
+    <a href="#shop" class="btn btn-primary">Explore Catalogue</a>
+  </div>
+
+</section>
+
+<style>
+  /* =========================
+   HERO SECTION (CLEAR IMAGE)
+   ========================= */
+
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 12px 32px rgba(0,0,0,0.25);
+
+  /* ✅ SINGLE CLEAR BACKGROUND */
+  background:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+    url("banner.jpg") center/cover no-repeat;
+}
+
+/* HERO CONTENT */
+.hero-content{
+  background:rgba(0,0,0,0.35);
+  padding:35px 30px;
+  border-radius:16px;
+  max-width:650px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  backdrop-filter:none; /* ❌ blur remove */
+  position:relative;
+  z-index:2;
+}
+
+
+/* HERO HEADING */
+.hero-content h1{
+  font-family:'Playfair Display', serif;
+  font-size:52px;
+  margin:0 0 10px;
+  color:#fff;
+  letter-spacing:1px;
+}
+
+/* HERO TEXT */
+.hero-content p{
+  font-size:18px;
+  line-height:1.6;
+  color:#f1f1f1;
+  margin-bottom:25px;
+}
+
+/* HERO BUTTON */
+.hero-content .btn{
+  font-size:16px;
+  padding:14px 26px;
+}
+
+/* =========================
+   PRODUCT IMAGE SHARPNESS
+   ========================= */
+
+.product img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  image-rendering:auto;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width:768px){
+  .hero{
+    height:20vh;
+    background-position:center top;
+  }
+
+  .hero-content{
+    padding:25px 20px;
+  }
+
+  .hero-content h1{
+    font-size:30px;
+  }
+
+  .hero-content p{
+    font-size:15px;
+  }
+}
+
+</style>
+
+
+<!-- ✅ Add this just before </body> in your existing code -->
+
+<!-- Fullscreen Image Modal -->
+<div id="imgModal">
+  <span onclick="closeImage()">&times;</span>
+  <img id="modalImg" src="">
+</div>
+
+<style>
+/* ✅ Modal CSS (No Other Change) */
+#imgModal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#imgModal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+#imgModal span {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 36px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#imgModal span:hover {
+  color: #ff5555;
+}
+</style>
+
+<script>
+/* ✅ Modal JS (No Other Change) */
+function openImage(src) {
+  document.getElementById("modalImg").src = src;
+  document.getElementById("imgModal").style.display = "flex";
+}
+function closeImage() {
+  document.getElementById("imgModal").style.display = "none";
+}
+</script>
+
+
+
+
+<section id="about" style="padding:70px 20px;max-width:1000px;margin:auto;text-align:center;">
+  <h2 style="font-family:'Playfair Display',serif;font-size:32px;margin-bottom:20px;">About Us</h2>
+  <p style="font-size:18px;line-height:1.7;color:#444;">
+    At <strong>QH Cottage</strong>, we craft premium leather goods and casual apparel 
+    designed to last. Our collection includes high-quality leather jackets, gloves, belts — perfect for everyday wear 
+    and special occasions.
+  </p>
+  <p style="font-size:18px;line-height:1.7;color:#444;margin-top:15px;">
+    Our mission is simple: to provide stylish, durable, and comfortable products while 
+    delivering exceptional customer service. We take pride in our craftsmanship, offer 
+    worldwide shipping, and accept custom orders to meet your unique style needs.
+  </p>
+</section>
+
+
+<section id="faq" style="padding:70px 20px;max-width:900px;margin:auto;">
+  <h2 style="font-family:'Playfair Display',serif;font-size:32px;text-align:center;margin-bottom:30px;">Frequently Asked Questions</h2>
+
+  <div style="background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:20px;margin-bottom:15px;">
+    <h3 style="margin:0;font-size:18px;color:#6b3e1e;">What products does QH Cottage offer?</h3>
+    <p style="margin:10px 0 0;color:#555;">We offer premium leather jackets, belts, gloves.</p>
+  </div>
+
+  <div style="background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:20px;margin-bottom:15px;">
+    <h3 style="margin:0;font-size:18px;color:#6b3e1e;">Do you ship internationally?</h3>
+    <p style="margin:10px 0 0;color:#555;">Yes! We ship worldwide with reliable courier services. You can pay via cash-on-delivery (in Pakistan) or online payment methods.</p>
+  </div>
+
+  <div style="background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:20px;margin-bottom:15px;">
+    <h3 style="margin:0;font-size:18px;color:#6b3e1e;">Can I customize my order?</h3>
+    <p style="margin:10px 0 0;color:#555;">Yes, we accept custom orders for leather jackets, gloves, and other products. Specify your requirements while placing the order.</p>
+  </div>
+
+  <div style="background:#fff;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);padding:20px;">
+    <h3 style="margin:0;font-size:18px;color:#6b3e1e;">How can I place an order?</h3>
+    <p style="margin:10px 0 0;color:#555;">Add your desired items to the cart and click "Checkout (Email)" to send your order. You can also reach out via Instagram or WhatsApp for assistance.</p>
+  </div>
+</section>
+
+
+
+<section id="shop">
+  <h2>Our Catalogue</h2>
+
+  <div id="filterBtns">
+    <button onclick="filterCategory('all')" class="active">All</button>
+    <button onclick="filterCategory('Leather Jackets')">Leather Jackets</button>
+    <button onclick="filterCategory('Gloves')">Gloves</button>
+    <button onclick="filterCategory('Shiner Kit')">Leather Shiner Kit</button>
+    <button onclick="filterCategory('Caps')">Caps</button>
+    <button onclick="filterCategory('belt')">Belt</button>
+  </div>
+
+  <input type="search" id="searchBox" placeholder="Search products..." 
+         style="width:100%;padding:12px;margin-bottom:20px;border-radius:8px;border:1px solid #ccc">
+
+  <div id="productGrid"></div>
+</section>
+
+<section id="reviews" style="padding:70px 20px;max-width:1100px;margin:auto;">
+<h2 style="font-family:'Playfair Display',serif;font-size:32px;text-align:center;margin-bottom:30px;">Customer Reviews</h2>
+
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px;">
+
+
+<div style="background:#fff;padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);text-align:center;">
+<div style="color:#f4c430;margin-bottom:10px;font-size:16px;">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+</div>
+<p style="font-style:italic;color:#444;">"The leather jacket is excellent! Premium material, clean stitching, and perfect fitting."</p>
+<strong style="display:block;margin-top:8px;">– Ali Raza</strong>
+</div>
+
+
+<div style="background:#fff;padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);text-align:center;">
+<div style="color:#f4c430;margin-bottom:10px;font-size:16px;">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+<p style="font-style:italic;color:#444;">"The gloves are very comfortable, soft, and offer excellent grip. Perfect for everyday use!"</p>
+<strong style="display:block;margin-top:8px;">– Hassan Malik</strong>
+</div>
+
+
+<div style="background:#fff;padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);text-align:center;">
+<div style="color:#f4c430;margin-bottom:10px;font-size:16px;">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+<p style="font-style:italic;color:#444;">"The leather cap looks stylish and the material feels very soft. Perfect for winter!"</p>
+<strong style="display:block;margin-top:8px;">– Sara Khan</strong>
+</div>
+
+
+<div style="background:#fff;padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.08);text-align:center;">
+<div style="color:#f4c430;margin-bottom:10px;font-size:16px;">
+<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+</div>
+<p style="font-style:italic;color:#444;">"The leather belt has a clean finish, strong buckle and gives a very premium look."</p>
+<strong style="display:block;margin-top:8px;">– Bilal Ahmed</strong>
+</div>
+
+
+</div>
+</section>
+
+
+
+
+<section id="contact" style="padding:70px 20px;max-width:900px;margin:auto;">
+  <h2 style="font-family:'Playfair Display',serif;font-size:32px;text-align:center;margin-bottom:30px;">Contact Us</h2>
+
+  <!-- ✅ Modern Contact Form -->
+  <form onsubmit="sendMessage(event)" style="background:#fff;padding:30px;border-radius:16px;box-shadow:0 8px 24px rgba(0,0,0,0.08);max-width:600px;margin:auto;">
+    <input type="text" id="name" placeholder="Enter your name" required
+           style="width:100%;padding:14px 16px;margin-bottom:15px;border:1px solid #ccc;border-radius:12px;font-size:16px;transition:0.3s;">
+    <input type="email" id="email" placeholder="Enter your email" required
+           style="width:100%;padding:14px 16px;margin-bottom:15px;border:1px solid #ccc;border-radius:12px;font-size:16px;transition:0.3s;">
+    <textarea rows="5" id="message" placeholder="Write your message here..." required
+              style="width:100%;padding:14px 16px;margin-bottom:20px;border:1px solid #ccc;border-radius:12px;font-size:16px;transition:0.3s;resize:none;"></textarea>
+    <button class="btn btn-primary" type="submit" 
+            style="width:100%;font-size:18px;padding:14px;border-radius:12px;background:#6b3e1e;color:#fff;border:none;cursor:pointer;transition:0.3s;">
+      Send Message
+    </button>
+  </form>
+
+  <!-- ✅ Bigger WhatsApp & Instagram Icons -->
+  <div style="text-align:center;margin-top:30px;">
+    <a href="https://wa.me/923426483104" target="_blank" 
+       style="background:#25d366;width:70px;height:70px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;margin:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2);text-decoration:none;transition:0.3s;">
+       <i class="fab fa-whatsapp" style="color:#fff;font-size:34px;"></i>
+    </a>
+
+    <a href="https://www.instagram.com/ridex_perts?igsh=MWd1ZnlhdjM1MGIzbg==" target="_blank" 
+       style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);width:70px;height:70px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;margin:10px;box-shadow:0 4px 10px rgba(0,0,0,0.2);text-decoration:none;transition:0.3s;">
+       <i class="fab fa-instagram" style="color:#fff;font-size:34px;"></i>
+    </a>
+  </div>
+
+  <!-- ✅ Google Map -->
+  <iframe src="https://maps.google.com/maps?q=Sialkot%20Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          style="border-radius:16px;width:100%;height:300px;border:0;margin-top:25px;"></iframe>
+</section>
+
+
+
+
+
+<button id="cartBtn">🛒<span id="cartCount">0</span></button>
+
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <button class="btn confirm-btn" onclick="confirmOrder()">Confirm via WhatsApp</button>
+    <button class="btn" style="margin-top:8px;width:100%" onclick="closeCart()">Close</button>
+  </div>
+</div>
+
+<footer style="background:#1e3a2a;color:#fff;padding:30px 20px;text-align:center;">
+  <p style="margin:0;font-size:14px;">© 2025 QH cottage — All Rights Reserved</p>
+  
+  <div style="margin-top:15px;display:flex;justify-content:center;flex-wrap:wrap;gap:15px;">
+    
+    <!-- WhatsApp -->
+    <a href="https://wa.me/923426483104" target="_blank" 
+       style="background:#25d366;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+       <i class="fab fa-whatsapp" style="color:#fff;font-size:20px;"></i>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https" target="_blank"
+       style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+       <i class="fab fa-instagram" style="color:#fff;font-size:20px;"></i>
+    </a>
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/profile.php?id=61567637155179" target="_blank"
+       style="background:#1877F2;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+       <i class="fab fa-facebook-f" style="color:#fff;font-size:20px;"></i>
+    </a>
+
+    <!-- Threads -->
+    <a href="" target="_blank"
+       style="background:#000;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+       <i class="fab fa-threads" style="color:#fff;font-size:20px;"></i>
+    </a>
+
+    <!-- TikTok -->
+    <a href="https://www.tiktok.com/@qhcottage?_r=1&_t=ZS-91yB2v4QNE5" target="_blank"
+       style="background:#000;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+       <i class="fab fa-tiktok" style="color:#fff;font-size:20px;"></i>
+    </a>
+
+   
+
+    <!-- Gmail -->
+<a href="mailto:qhcottageofficial@gmail.com" target="_blank"
+   style="background:#EA4335;width:45px;height:45px;display:flex;align-items:center;justify-content:center;border-radius:50%;text-decoration:none;transition:0.3s;">
+   <i class="fas fa-envelope" style="color:#fff;font-size:20px;"></i>
+</a>
+
+  </div>
+</footer>
+
+
+<script>
+const products=[
+{name:"Biker Jacket",cat:"Leather Jackets",size:"S/M/L/XL/XXL",img:"download.jpg"},
+{name:"Trench Leather Coat",cat:"Leather Jackets",size:"S/M/L/XL/XXL",img:"Specs_ Outer Shell_ 100% Genuine Leather Leather….jpg"},
+{name:"Bomber Jacket",cat:"Leather Jackets",size:"S/M/L/XL/XXL",img:"Bomber Brown Leather Jacket Men Real Lambskin….jpg"},
+{name:"Blazer Style Leather Jacket",cat:"Leather Jackets",size:"S/M/L/XL/XXL",img:"black lambskin pebbled texture notched collar….jpg"},
+{name:"Driving Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"Sheepskin Gloves for Men and Women Winter Fleece….jpg"},
+{name:"Riding Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"PB Arctic Leather Waterproof Motorcycle Gloves….jpg"},
+{name:"Thermal Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"Return Policy Fast Delivery Trusted seller Winter….jpg"},
+{name:"Casual Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"Elevate your winter fashion with these stylish….jpg"},
+{name:"Sports Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"Red  Collar  Microfiber Leather   Embellished….jpg"},
+{name:"Safety Gloves",cat:"Gloves",size:"S/M/L/XL/XXL",img:"【Durable and Comfortable】Our leather gardening….jpg"},
+{name:"Leather Shiner Kit",cat:"Shiner Kit",size:"250 Ml",img:"Leather Master Leather Care Kit - 250ml.jpg"},
+{name:"Leather Caps Boys",cat:"Caps",size:"S/M/L inch",img:"Features_ - Material_ 100% Genuine Leather….jpg"},
+{name:"Leather Caps Girls",cat:"Caps",size:"S/M / L",img:"DAZORIGINAL WOMENS BIG BAKER BOY CAP GENUINE….jpg"},
+{name:"Formal Dress Belt",cat:"belt",size:"All Size",img:"Intricate topstitching adds a dapper touch to this….jpg"},
+{name:"Reversible Belt",cat:"belt",size:"All Size",img:"Enhance your wardrobe with our elegant Cognac….jpg"},
+{name:"Western Belt",cat:"belt",size:"All Size",img:"PRICES MAY VARY_ Unique cowboy belt design….jpg"}
+];
+
+const grid=document.getElementById('productGrid');
+const cart=[];
+let currentFilter="all";
+
+function renderProducts(filter="all",search=""){
+  grid.innerHTML="";
+  products.filter(p=>(filter==="all"||p.cat.includes(filter)) && p.name.toLowerCase().includes(search.toLowerCase()))
+    .forEach((p,i)=>{
+      const div=document.createElement('div');
+      div.className="product";
+      div.innerHTML=`<img src="${p.img}" alt="${p.name}" onclick="openImage('${p.img}')"><h3>${p.name}</h3><p>${p.cat}</p><p class="size">Size: ${p.size}</p><div class="actions"><button class="btn btn-primary" onclick="addToCart(${i})">Add to Cart</button></div>`;
+
+      grid.appendChild(div);
+    });
+}
+renderProducts();
+
+document.getElementById('searchBox').addEventListener('input',e=>{
+  renderProducts(currentFilter,e.target.value);
+});
+
+function filterCategory(cat){
+  currentFilter=cat;
+  document.querySelectorAll('#filterBtns button').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderProducts(cat,document.getElementById('searchBox').value);
+}
+
+function addToCart(i){cart.push(products[i]);document.getElementById('cartCount').innerText=cart.length;}
+document.getElementById('cartBtn').addEventListener('click',()=>showCart());
+function showCart(){
+  const list=document.getElementById('cartItems');
+  list.innerHTML=cart.length?cart.map(p=>`<div class="cart-item"><span>${p.name} (${p.size})</span><span>✓</span></div>`).join(""):"<p>Your cart is empty</p>";
+  document.getElementById('cartModal').style.display="flex";
+}
+function closeCart(){document.getElementById('cartModal').style.display="none";}
+function confirmOrder(){
+  if(cart.length===0){alert("Cart is empty!");return;}
+  let message="Hello QH Cottage, I want to order:\n"+cart.map(p=>"- "+p.name+" ("+p.size+")").join("\n");
+  window.open("https://wa.me/923426483104?text="+encodeURIComponent(message),'_blank');
+}
+function sendMessage(e){
+  e.preventDefault();
+  let name=document.getElementById('name').value;
+  let email=document.getElementById('email').value;
+  let msg=document.getElementById('message').value;
+  window.open(`https://wa.me/923426483104?text=Hello, my name is ${name}%0AEmail: ${email}%0AMessage: ${msg}`,'_blank');
+}
+</script>
+
+
+
+</body>
+</html>
