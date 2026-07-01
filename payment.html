@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f3f5f7;
+            color: #222;
+            line-height: 1.8;
+        }
+
+        /* HEADER */
+
+        .page-header {
+            background:
+                linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .75)),
+                url('https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=80&w=1600');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #ddd;
+            font-size: 18px;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 60px auto;
+        }
+
+        /* GRID */
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        /* CARD */
+
+        .payment-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+            transition: .4s;
+            border: 1px solid #eee;
+        }
+
+        .payment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, .12);
+        }
+
+        .payment-card i {
+            font-size: 55px;
+            margin-bottom: 18px;
+        }
+
+        .payment-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .payment-card p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* ICON COLORS */
+
+        .paypal {
+            color: #0070ba;
+        }
+
+        .visa {
+            color: #1a1f71;
+        }
+
+        .mastercard {
+            color: #eb001b;
+        }
+
+        .wise {
+            color: #00b9a5;
+        }
+
+        .payoneer {
+            color: #ff5f00;
+        }
+
+        .bank {
+            color: #0f8c43;
+        }
+
+        /* BANK DETAILS */
+
+        .bank-details {
+            margin-top: 50px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+        }
+
+        .bank-details h2 {
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .bank-box {
+            background: #f8f9fb;
+            padding: 25px;
+            border-radius: 15px;
+            line-height: 2;
+        }
+
+        .bank-box strong {
+            color: #111;
+        }
+
+        /* SECURITY */
+
+        .security-box {
+            margin-top: 40px;
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, .08);
+        }
+
+        .security-box i {
+            font-size: 50px;
+            color: #d4a017;
+            margin-bottom: 15px;
+        }
+
+        .security-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .security-box p {
+            color: #666;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* BUTTON */
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 30px;
+            background: #111;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .back-btn:hover {
+            background: #d4a017;
+            color: black;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px) {
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-header">
+
+        <h1>Secure Payment Methods</h1>
+
+        <p>
+            Fast, trusted and globally accepted payment options
+            for customers worldwide.
+        </p>
+
+    </div>
+
+    <div class="container">
+
+        <div class="payment-grid">
+
+            <div class="payment-card">
+                <i class="fa-brands fa-paypal paypal"></i>
+                <h3>PayPal</h3>
+                <p>Fast and secure international payments with buyer protection.</p>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-brands fa-cc-visa visa"></i>
+                <h3>Visa Card</h3>
+                <p>Accept Visa debit and credit card payments worldwide.</p>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-brands fa-cc-mastercard mastercard"></i>
+                <h3>MasterCard</h3>
+                <p>Trusted and secure card payments for global customers.</p>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-solid fa-money-bill-transfer wise"></i>
+                <h3>Wise Transfer</h3>
+                <p>Low-cost international transfers with real exchange rates.</p>
+            </div>
+
+            <div class="payment-card">
+                <i class="fa-solid fa-wallet payoneer"></i>
+                <h3>Payoneer</h3>
+                <p>Professional payments for freelancers and businesses.</p>
+            </div>
+
+            <!-- NEW BANK CARD -->
+
+            <div class="payment-card">
+                <i class="fa-solid fa-building-columns bank"></i>
+                <h3>Bank Transfer</h3>
+                <p>
+                    Direct payment through our official bank account with secure transactions.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- SECURITY -->
+
+        <div class="security-box">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <h2>100% Secure Payments</h2>
+
+            <p>
+                All transactions are protected using modern encryption and security
+                standards, ensuring a reliable and safe payment experience.
+                Your financial information remains private and protected.
+            </p>
+
+            <a href="index.html" class="back-btn">
+                Back To Home
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
